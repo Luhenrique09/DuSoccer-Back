@@ -3,6 +3,6 @@ import { singInPost } from "../controllers/authentication-controller";
 
 const authenticationRouter = Router();
 
-authenticationRouter.post("/signin", singInPost);
+authenticationRouter.post("/sign-in", singInPost);
 
 export { authenticationRouter };
