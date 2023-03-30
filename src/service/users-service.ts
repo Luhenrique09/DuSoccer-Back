@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import userRepository from "../repositories/user-repository";
 
-export async function createUser({ name, email, password } : any) {
+async function createUser({ name, email, password } : any) {
 
   await validateEmail(email);
 

@@ -1,7 +1,6 @@
-import { Prisma } from "@prisma/client";
 import prisma from "../../database/db";
 
-async function create(data: Prisma.SessionUncheckedCreateInput) {
+async function create(data: any) {
   return prisma.session.create({
     data,
   });

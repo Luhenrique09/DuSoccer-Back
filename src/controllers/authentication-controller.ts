@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import httpStatus from "http-status";
 import authenticationService from "../service/authentication-controller.ts";
 export async function singInPost(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -12,8 +13,8 @@ export async function singInPost(req: Request, res: Response) {
           token: result.token
     }
   
-    return res.status(201).send(user);
+    return res.status(httpStatus.OK).send(user);
 } catch (error) {
-  return res.status(403).send(error);
+  return res.status(httpStatus.UNAUTHORIZED);
 }
 }
