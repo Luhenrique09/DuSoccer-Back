@@ -6,15 +6,30 @@ async function createChampionship(name: string, numTeam: number, returnPlay: boo
     name,
     numTeam,
     returnPlay,
-    owner: userId,
+    ownerId: userId,
   }
   const result = await championshipRepository.createChampionship(data)
 
   return result;
 }
 
+async function getChampionship() {
+  const result = await championshipRepository.findChampionship();
+
+  return result;
+}
+
+
+async function getUserChampionshipId(userId: number) {
+  const result = await championshipRepository.findUserChampionshipId(userId)
+
+  return result;
+}
+
 const championshipService = {
-  createChampionship
+  createChampionship,
+  getChampionship,
+  getUserChampionshipId
 }
 
 export default championshipService

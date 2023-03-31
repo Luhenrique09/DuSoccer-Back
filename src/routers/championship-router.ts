@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { createChampionship } from "../controllers/championship-controller";
+import { createChampionship, getChampionship, getUserChampionshipId } from "../controllers/championship-controller";
 import { authValidation } from "../middlewares/authValidation.middleware";
 
 const championshipRouter = Router();
 
 championshipRouter
   .all("/*", authValidation)
-  .post("/", createChampionship)
+  .get("", getChampionship)
+  .post("", createChampionship)
+  .get("/userchampionship", getUserChampionshipId)
+  
   
 
 export { championshipRouter };

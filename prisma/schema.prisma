@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Definindo o modelo de usuário e tabela de sessão
 model Users {
   id        Int      @id @default(autoincrement())
   name      String   @unique

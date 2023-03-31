@@ -1,0 +1,1 @@
+{"version":3,"file":"championship-router.js","sourceRoot":"","sources":["../../src/routers/championship-router.ts"],"names":[],"mappings":";;;AAAA,qCAAiC;AACjC,oFAAiG;AACjG,wFAA0E;AAE1E,MAAM,kBAAkB,GAAG,IAAA,gBAAM,GAAE,CAAC;AAQ3B,gDAAkB;AAN3B,kBAAkB;KACf,GAAG,CAAC,IAAI,EAAE,0CAAc,CAAC;KACzB,IAAI,CAAC,GAAG,EAAE,4CAAkB,CAAC;KAC7B,GAAG,CAAC,mBAAmB,EAAE,6CAAmB,CAAC,CAAA"}

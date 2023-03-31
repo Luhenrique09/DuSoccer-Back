@@ -3,23 +3,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const users_repository_1 = __importDefault(require("../repositories/users-repository"));
+const user_repository_1 = __importDefault(require("../repositories/user-repository"));
 async function createUser({ name, email, password }) {
+    await validateEmail(email);
     const hashedPassword = await bcrypt_1.default.hash(password, 12);
     const user = {
         name,
         email,
         password: hashedPassword
     };
-    const createdUser = await users_repository_1.default.createUser(user);
+    const createdUser = await user_repository_1.default.createUser(user);
     return createdUser;
 }
-exports.createUser = createUser;
-async function validateUniqueEmailOrFail(email) {
-    const userWithSameEmail = await users_repository_1.default.findByEmail(email);
-    if (userWithSameEmail) {
+async function validateEmail(email) {
+    const userEmail = await user_repository_1.default.findByEmail(email);
+    if (userEmail) {
         throw { name: "CONFLICT" };
     }
 }

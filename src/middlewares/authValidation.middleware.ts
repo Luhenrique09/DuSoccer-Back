@@ -1,32 +1,28 @@
-import dotenv from "dotenv";
 import { NextFunction , Request, Response} from "express";
 import httpStatus from "http-status";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
+import prisma from "../database/db";
 
-export function authValidation(req: Request, res: Response, next:NextFunction) {
-  dotenv.config();
-  const { authorization } = req.headers;
+export async function authValidation(req: AuthenticatedRequest, res: Response, next:NextFunction) {
+  const authHeader = req.header("Authorization");
+  if (!authHeader) 
+  return res.status(httpStatus.UNAUTHORIZED).send("Campo authorization obrigatório");
+  
+  const token = authHeader.split(" ")[1];
+  if(!token) return res.status(httpStatus.UNAUTHORIZED);
 
   try {
-    if (!authorization) 
-      return res.status(httpStatus.UNAUTHORIZED).send("Campo authorization obrigatório");
-      
+    const {userId} = jwt.verify(token, `${process.env.JWT_SECRET}`) as any;
+ 
+    const session = await prisma.session.findFirst({where:{token}})
+    if(!session) return res.status(httpStatus.UNAUTHORIZED);
 
-    const parts = authorization.split(" ");
-    const [schema, token] = parts;
-    if (parts.length !== 2) 
-    return res.status(httpStatus.BAD_REQUEST).send("Formato campo authorization inválido");
-       
-    if (schema !== "Bearer")
-      return res.status(httpStatus.BAD_REQUEST).send("Bearer inválido");
-      
-    const user = jwt.verify(token, process.env.SECRET_JWT = "secret_jwt");
-    res.locals.user = user;
+    req.userId = userId;
+    return next();
   } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
       return res.status(httpStatus.UNAUTHORIZED);
-    }
-    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
-  next();
+ 
 }
+export type AuthenticatedRequest = Request & any;
+
