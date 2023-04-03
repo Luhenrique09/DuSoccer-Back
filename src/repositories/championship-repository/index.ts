@@ -18,7 +18,7 @@ async function findChampionship() {
     },
     orderBy: {
       name: 'asc'
-    }
+    }, 
   }); 
 }
 

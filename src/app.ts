@@ -5,6 +5,7 @@ import { usersRouter } from './routers/users-router';
 import dayjs from 'dayjs';
 import { authenticationRouter } from './routers/authentication-router';
 import { championshipRouter } from './routers/championship-router';
+import { teamsRouter } from './routers/teams-router';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app
 .use("/users", usersRouter)
 .use("/auth", authenticationRouter)
 .use("/championship", championshipRouter)
+.use("/teams", teamsRouter)
 
 
 const PORT = process.env.PORT || 4000;

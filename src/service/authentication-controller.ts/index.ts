@@ -26,7 +26,7 @@ async function getUserOrFail(email: string){
 }
 
 async function createSession(userId: number) {
-  const token = jwt.sign({ userId }, `${process.env.JWT_SECRET}`, { expiresIn: '2h' });
+  const token = jwt.sign({ userId }, `${process.env.JWT_SECRET}`/* , { expiresIn: '2h' } */);
   await sessionRepository.create({
     token,
     userId,

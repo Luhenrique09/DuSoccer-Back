@@ -6,7 +6,7 @@ import { AuthenticatedRequest } from "../middlewares/authValidation.middleware";
 export async function createChampionship (req: AuthenticatedRequest, res: Response){
   const {name, numTeam, returnPlay} = req.body;
   const {userId} = req;
-  console.log(userId)
+
   try {
     const result = await championshipService.createChampionship(name, numTeam, returnPlay, userId)
    
