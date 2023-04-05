@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sessionRepository from "../../repositories/session-repository";
 import userRepository from "../../repositories/user-repository";
+import { number } from "joi";
+import { notFoundError } from "../teams-service/error";
 
 async function signIn(params: any) {
   const { email, password } = params;
@@ -37,11 +39,22 @@ async function createSession(userId: number) {
 
 async function validatePasswordOrFail(password: string, userPassword: string) {
   const isPasswordValid = await bcrypt.compare(password, userPassword);
-  if (!isPasswordValid) throw  {name: "erro"};
+  if (!isPasswordValid) throw  notFoundError("password");
+}
+
+async function deleteSession(token: string) {
+  const session = await sessionRepository.findOne(token);
+  if(!session){
+    throw notFoundError("session");
+  }
+
+  await sessionRepository.deleteSession(token)
+ 
 }
 
 const authenticationService = {
   signIn,
+  deleteSession
 };
 
 export default authenticationService;

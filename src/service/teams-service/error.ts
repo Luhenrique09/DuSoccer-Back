@@ -1,10 +1,10 @@
 import { CustomError } from "../../protocols";
 
 
-export function notFoundError(): CustomError {
+export function notFoundError(name: string): CustomError {
   const error: CustomError = {
     name: 'notFoundError',
-    message: 'The championship you are trying to add teams to does not exist',
+    message: `The ${name} does not exist`,
   };
   return error;
 }

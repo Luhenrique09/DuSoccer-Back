@@ -7,7 +7,7 @@ async function createTeam(name: string, championshipsId: number) {
     championshipsId
   }
    const championship = await teamsRepository.findChampionshipById(championshipsId);
-  if(!championship) throw notFoundError();
+  if(!championship) throw notFoundError("championship");
 
 
   const teams = await teamsRepository.findAllTemasByIdChampionship(championshipsId);
@@ -22,7 +22,7 @@ async function createTeam(name: string, championshipsId: number) {
 async function getTeamsByUser(championshipsId: number) {
   const championship = await teamsRepository.findChampionshipById(championshipsId);
   const teams = teamsRepository.findTeamsChampionshipById(championshipsId);
-  if(!teams || !championship) throw notFoundError();
+  if(!teams || !championship) throw notFoundError("teams");
   
   return teams;
 }

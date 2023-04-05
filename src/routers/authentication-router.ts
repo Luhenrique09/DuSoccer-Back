@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { singInPost } from "../controllers/authentication-controller";
+import { deleteSession, singInPost } from "../controllers/authentication-controller";
+import { authValidation } from "../middlewares/authValidation.middleware";
 
 const authenticationRouter = Router();
 
-authenticationRouter.post("/sign-in", singInPost);
+authenticationRouter
+.post("/sign-in", singInPost)
+.delete("/logout", deleteSession)
 
 export { authenticationRouter };

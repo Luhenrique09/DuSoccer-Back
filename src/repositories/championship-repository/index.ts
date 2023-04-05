@@ -30,10 +30,20 @@ async function findUserChampionshipId(userId: number) {
   })
 }
 
+async function findUser(userId: number) {
+  return prisma.users.findUnique({
+    where: {
+      id: userId
+    }
+  })
+}
+
+
 const championshipRepository = {
   createChampionship,
   findUserChampionshipId,
-  findChampionship
+  findChampionship,
+  findUser
 };
 
 export default championshipRepository;

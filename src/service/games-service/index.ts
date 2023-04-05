@@ -4,16 +4,16 @@ import { notFoundError } from "../teams-service/error";
 async function createGames(championshipsId:number) {
   const championship = await gamesRepository.findUserChampionshipId(championshipsId);
     if (!championship) {
-      throw notFoundError(); 
+      throw notFoundError("championship"); 
     }
     const teams = await gamesRepository.findTeamsByChampionshipId(championshipsId);
     const { numTeam, returnPlay } = championship;
     if(!teams){
-      throw notFoundError(); 
+      throw notFoundError("teams"); 
     }
 
     if (numTeam <= 1) {
-      throw notFoundError(); 
+      throw notFoundError("Qtde"); 
     }
     
     const totalRounds = returnPlay ? numTeam * 2 - 2 : numTeam - 1;

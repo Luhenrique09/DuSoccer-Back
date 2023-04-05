@@ -6,8 +6,8 @@ const championshipRouter = Router();
 
 championshipRouter
   .all("/*", authValidation)
-  .get("", getChampionship)
-  .post("", createChampionship)
+  .get("/", getChampionship)
+  .post("/", createChampionship)
   .get("/userchampionship", getUserChampionshipId)
   
   

@@ -1,4 +1,5 @@
 import championshipRepository from "../../repositories/championship-repository";
+import { notFoundError } from "../teams-service/error";
 
 async function createChampionship(name: string, numTeam: number, returnPlay: boolean, userId: number) {
 
@@ -8,6 +9,10 @@ async function createChampionship(name: string, numTeam: number, returnPlay: boo
     returnPlay,
     ownerId: userId,
   }
+
+  const user = await championshipRepository.findUser(userId)
+  if(!user) throw notFoundError("user");
+
   const result = await championshipRepository.createChampionship(data)
 
   return result;

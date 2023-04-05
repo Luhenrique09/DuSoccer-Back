@@ -6,12 +6,14 @@ import { AuthenticatedRequest } from "../middlewares/authValidation.middleware";
 export async function createChampionship (req: AuthenticatedRequest, res: Response){
   const {name, numTeam, returnPlay} = req.body;
   const {userId} = req;
-
+  console.log(name, numTeam, returnPlay, userId)
   try {
+    
     const result = await championshipService.createChampionship(name, numTeam, returnPlay, userId)
-   
+    
     return res.status(httpStatus.CREATED).send(result);
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === "notFoundError") return res.status(httpStatus.NOT_FOUND).send(error.message);
     return res.status(httpStatus.NOT_FOUND);
   }
 };
