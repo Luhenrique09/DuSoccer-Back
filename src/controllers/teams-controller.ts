@@ -1,15 +1,15 @@
 import { Response, Request } from "express";
 import httpStatus from "http-status";
-import { func } from "joi";
 import { AuthenticatedRequest } from "../middlewares/authValidation.middleware";
 import teamsService from "../service/teams-service";
 
 export async function postTeams(req: Request, res: Response) {
   const { name, championshipsId } = req.body;
-  try {
-    const result = await teamsService.createTeam(name, championshipsId);
 
-    return res.status(httpStatus.CREATED).send(result)
+  try {
+   await teamsService.createTeam(name, championshipsId);
+
+    return res.sendStatus(httpStatus.CREATED)
   } catch (error: any) {
     if (error.name === "ExceedError") return res.status(httpStatus.BAD_REQUEST).send(error.message);
 
@@ -21,7 +21,7 @@ export async function postTeams(req: Request, res: Response) {
 
 export async function getTeamsByUser(req: AuthenticatedRequest, res: Response) {
   const championshipsId = req.params.id;
- console.log(championshipsId)
+
   try {
     const result = await teamsService.getTeamsByUser(Number(championshipsId));
     console.log(result)

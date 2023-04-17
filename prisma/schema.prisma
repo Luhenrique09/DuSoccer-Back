@@ -35,7 +35,8 @@ model Championship {
   owner      Users   @relation(fields: [ownerId], references: [id])
   teams      Team[]
   games      Games[]
-  score      Score[] 
+  score      Score[]
+  image      String?
 }
 
 model Team {
@@ -45,7 +46,7 @@ model Team {
   championshipsId Int
   gamesMander     Games[]      @relation("mander")
   gamesVisitor    Games[]      @relation("visitor")
-  score           Score[] 
+  score           Score[]
 }
 
 model Games {

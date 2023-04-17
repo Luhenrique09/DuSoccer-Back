@@ -6,7 +6,7 @@ async function createTeam(name: string, championshipsId: number) {
     name,
     championshipsId
   }
-   const championship = await teamsRepository.findChampionshipById(championshipsId);
+  const championship = await teamsRepository.findChampionshipById(championshipsId);
   if(!championship) throw notFoundError("championship");
 
 

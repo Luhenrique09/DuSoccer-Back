@@ -11,6 +11,9 @@ async function createGames(championshipsId:number) {
     if(!teams){
       throw notFoundError("teams"); 
     }
+    if(teams.length !== numTeam){
+      throw notFoundError("teams"); 
+    }
 
     if (numTeam <= 1) {
       throw notFoundError("Qtde"); 
@@ -18,8 +21,10 @@ async function createGames(championshipsId:number) {
     
     const totalRounds = returnPlay ? numTeam * 2 - 2 : numTeam - 1;
     const games: Game[] = [];
-    console.log(totalRounds, returnPlay)
+    let rounds: number;
+   
     for (let k = 1; k <= totalRounds; k++) {
+      rounds = k;
       for (let i = 0; i < numTeam; i++) {
         for (let j = i + 1; j < numTeam; j++) {
           const mander = teams[i].id;
@@ -27,7 +32,7 @@ async function createGames(championshipsId:number) {
 
           games.push({
             championshipsId: championshipsId,
-            round: k,
+            round: rounds,
             manderId: mander,
             visitorId: visitor
           });
@@ -35,7 +40,7 @@ async function createGames(championshipsId:number) {
           if (returnPlay) {
             games.push({
               championshipsId: championshipsId,
-              round: k + totalRounds,
+              round: rounds + (totalRounds-2),
               manderId: visitor,
               visitorId: mander
             });

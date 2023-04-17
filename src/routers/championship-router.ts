@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createChampionship, getChampionship, getUserChampionshipId } from "../controllers/championship-controller";
+import { createChampionship, deleteChampionship, getChampionship, getUserChampionshipId } from "../controllers/championship-controller";
 import { authValidation } from "../middlewares/authValidation.middleware";
 
 const championshipRouter = Router();
@@ -7,8 +7,9 @@ const championshipRouter = Router();
 championshipRouter
   .all("/*", authValidation)
   .get("/", getChampionship)
-  .post("/", createChampionship)
-  .get("/userchampionship", getUserChampionshipId)
+  .post("/user", createChampionship)
+  .get("/user", getUserChampionshipId)
+  .delete("/:championshipId", deleteChampionship)
   
   
 

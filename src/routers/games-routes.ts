@@ -6,7 +6,7 @@ const gamesRouter = Router()
 
 gamesRouter
   .all("/*", authValidation)
-  .post("/championships/:championshipId", createGames)
+  .post("/championship/:championshipId", createGames)
   .get("/:championshipsId", findGames)
 
 export {gamesRouter}
